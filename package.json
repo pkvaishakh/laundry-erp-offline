@@ -1,0 +1,75 @@
+{
+  "name": "nextjs-postgresql-template",
+  "version": "1.0.0",
+  "private": true,
+  "main": "electron/main.js",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint .",
+    "typecheck": "tsc --noEmit",
+    "build:electron": "next build && node scripts/prepare-electron-build.js",
+    "electron:dev": "electron .",
+    "dist": "npm run build:electron && electron-builder"
+  },
+  "dependencies": {
+    "@types/jsbarcode": "^3.11.4",
+    "@types/qrcode": "^1.5.6",
+    "date-fns": "^4.4.0",
+    "dotenv": "17.3.1",
+    "drizzle-orm": "0.45.2",
+    "jsbarcode": "^3.12.3",
+    "lucide-react": "^1.28.0",
+    "next": "16.2.6",
+    "pg": "8.20.0",
+    "qrcode": "^1.5.4",
+    "react": "19.2.6",
+    "react-dom": "19.2.6",
+    "react-hot-toast": "^2.6.0",
+    "react-to-print": "^3.3.0",
+    "recharts": "^3.10.1"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "4.1.17",
+    "@types/node": "22.19.15",
+    "@types/pg": "8.18.0",
+    "@types/react": "19.2.14",
+    "@types/react-dom": "19.2.3",
+    "drizzle-kit": "0.31.10",
+    "electron": "^41.7.1",
+    "electron-builder": "^26.15.3",
+    "eslint": "9.39.4",
+    "eslint-config-next": "16.2.6",
+    "postcss": "8.5.8",
+    "tailwindcss": "4.1.17",
+    "typescript": "5.9.3"
+  },
+  "overrides": {
+    "@noble/hashes": "1.8.0"
+  },
+  "build": {
+    "appId": "com.laundrypro.desktop",
+    "productName": "LaundryPro",
+    "asar": true,
+    "files": [
+      "electron/**/*",
+      "package.json"
+    ],
+    "afterPack": "scripts/after-pack.js",
+    "directories": {
+      "output": "release"
+    },
+    "win": {
+      "target": ["nsis", "portable"]
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "artifactName": "LaundryPro-Setup-${version}.${ext}"
+    },
+    "portable": {
+      "artifactName": "LaundryPro-Portable-${version}.${ext}"
+    }
+  }
+}
